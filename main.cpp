@@ -95,6 +95,9 @@ namespace NS
      ++pNew->changes;
      swap(pImpl, pNew); // pImpl -> pNew
      //unlock(&mutex);
+         
+     
+     //30 : inline function : small & frequent function, etc X
      
  }
 
