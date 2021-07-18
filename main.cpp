@@ -73,7 +73,7 @@ namespace NS
      // 29 : exception safety //
      struct STRUCT29
      {
-         std::tr1::shared_ptr<TYPE29> element;
+         std::tr1::shared_ptr<TYPE29> element; // **
          int changes;
      };
     
@@ -84,21 +84,15 @@ namespace NS
      
      private:
      Mutex mutex;
-     //TYPE1 *element;
-     //std::tr1::shared_ptr<TYPE29> element; // **
      std::tr1::shared_ptr<STRUCT29> pImpl;
      int changes; // change numbers
-     
      void Menu::change(std::istream& memberVar)
      {
      using std::swap;
      Lock ml(&mutex); // **
-     //delete element;
-     //element.reset(new FUNC(member Var));
      std::tr1::shared_ptr<STRUCT29> pNew(new PMImpl(*pImpl)); // copy
      pNew->element.reset(new FUNC29(memberVar)); // modify
      ++pNew->changes;
-     //element = new TYPE1(memberVar);
      swap(pImpl, pNew); // pImpl -> pNew
      //unlock(&mutex);
      
