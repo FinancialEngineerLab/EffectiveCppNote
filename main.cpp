@@ -166,17 +166,15 @@ namespace NS
      d.mf3(int 3);
      
      // 34: interface inheritance vs implement inheritance
+     // Virtual, nonVirtual
      class ShapeCLS
      {
          public:
-         // ** virtual -> interface inheritance : declare in child!
-         virtual void draw(const ShapeCLS& art) = 0;
-         // ** pure virtual
-         virtual void erae(const ShapeCLS& art) const = 0;
-         
          // ** simple virtual -> implement inheritance : declare in child if you do not want use base !
-         virtual void error(const std::string& msg); 
-         
+         virtual void draw(const ShapeCLS& art) = 0;
+         // ** pure virtual  -> interface inheritance : declare in child!
+         virtual void erase(const ShapeCLS& art) const = 0;
+         // ** nonvirtual -> cannot declare in derived/child, use base funciton in both base and child!
          int objectID() const;
          
          protected:
