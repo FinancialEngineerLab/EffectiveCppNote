@@ -106,12 +106,33 @@ namespace NS
          public:
          static std::tr1::shared_ptr<CLS31> FUNC(const std::string& a, const Date& b, const TYPE31& c);
      };
+         
+     class CLSChild31 : public CLS31
+     {
+         public:
+         CLSChild31(const std::string& a, const Date& b, const TYPE31& c) : theA(a), theB(b), theC(c) {}
+         virtual ~CLSChild31() {}
+         std::string FUNC3101() const;
+         std::string FUNC3102() const;
+         std::string FUNC3103() const;
+         
+         private:
+         std::string theA;
+         Date theB;
+         TYPE31 theC;
+     }
+     //parent user
      std::string aa;
      Date bb;
      TYPE31 cc;
      std::tr1::shared_ptr<CLS31> pp(CLS31::FUNC(aa, bb, cc);
      std::cout << pp->aa() << pp->bb() << pp->cc() << std::endl;
-                   
+     //child user
+     std::tr1::shared_ptr<CLS31> CLS31::FUNC31(const std::string& a, const Date& b, const TYPE31& c)
+     {
+          return std::tr1::shared_ptr<CLS31>(new CLSChild31(a, b, c));
+     }
+      
          
          
  }
