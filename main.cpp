@@ -169,25 +169,56 @@ namespace NS
      class ShapeCLS
      {
          public:
-         // ** pure virtual -> interface inheritance : declare in child!
-         virtual void draw(const ShapeCLS& art) const = 0;
+         // ** virtual -> interface inheritance : declare in child!
+         virtual void draw(const ShapeCLS& art) = 0;
+         // ** pure virtual
+         virtual void erae(const ShapeCLS& art) const = 0;
+         
          // ** simple virtual -> implement inheritance : declare in child if you do not want use base !
          virtual void error(const std::string& msg); 
          
          int objectID() const;
          
          protected:
-         void defaultDraw(const ShapeCLS& art);  //** pure virtual default func      
+         void defaultErase(const ShapeCLS& art);  //** pure virtual default func      
      };
-     void ShapeCLS::defaultDraw(const ShapeCLS& art)
+                                    
+     void ShapeCLS::draw(const ShapeCLS& art)
      {
-         ... // base function
+         ... // base function for base and childs
      }
-     class Rectangle: public Shape 
+                                    
+     void ShapeCLS::defaultErase(const ShapeCLS& art)
+     {
+         ... // base function for childs
+     }
+                                    
+     // not using Special Function of base virtual function
+     // using base virtual function
+     class RectangleChild1: public Shape 
      {
          public:
-         virtual void draw(const ShapeCLS& art) { defaultDraw(art) }// pure virtual + default func
+         virtual void draw(const ShapeCLS& art) { ShapeCLS::draw(art) }// virtual not using special
+         virtual void erase(const ShapeCLS& art) // pure virtual + special
      };
+     // pure virtual SPEICAL DECLARATION                            
+     void RectangleChild1::erase(const ShapeCLS& art)
+     {
+     }     
+                                                   
+     // using SPECIAL Function of base virtual function
+     class RectangleChild2 : public Shape
+     {
+         public:
+         virtual void draw(const ShapeCLS& art); // virtual using special
+         virtual void erase(const ShapeCLS& art){ ShapeCLS::defaultErase(art) } // pure virtual + base; 
+     };
+     // virtual SPECIAL DECLATION
+     void RectangleChild2::draw(const ShapeCLS& art)
+     {
+     }
+                                
+                                        
      
           
  }
