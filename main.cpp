@@ -132,9 +132,30 @@ namespace NS
      {
           return std::tr1::shared_ptr<CLS31>(new CLSChild31(a, b, c));
      }
-      
-         
-         
+     // 31 end //
+     
+     // 32 : Public inheritance: base class's all details should be adjusted into derived class(child class) 
+     class BaseCLS32
+     {
+       public:
+       virtual void mf1() = 0;
+       virtual void mf1(int);
+       virtual void mf2();
+       void mf3();
+       void mf3(double);
+       
+       private:
+       int x;
+     }                         
+     class DerivedChildCLS32 : Public Base
+     {
+       public:
+       using BaseCLS32::mf1;
+       using BaseCLS32::mf3;
+       virtual void mf1();
+       void mf3();
+       void mf4();
+                                      
  }
 
 
