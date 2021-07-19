@@ -148,7 +148,7 @@ namespace NS
        
        private:
        int x;
-     }                         
+     }
      class DerivedChildCLS32 : Public Base
      {
        public:
