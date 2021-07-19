@@ -95,10 +95,25 @@ namespace NS
      ++pNew->changes;
      swap(pImpl, pNew); // pImpl -> pNew
      //unlock(&mutex);
+        
+     // 30 : inline function : small & frequent function, etc X
+     
+     // 31 : complie independancy : 
+     //private:
+     //    std::tr1::shared_ptr<CLASSImpl> pImpl; // Remember this pattern
+     class CLS31
+     {
+         public:
+         static std::tr1::shared_ptr<CLS31> FUNC(const std::string& a, const Date& b, const TYPE31& c);
+     };
+     std::string aa;
+     Date bb;
+     TYPE31 cc;
+     std::tr1::shared_ptr<CLS31> pp(CLS31::FUNC(aa, bb, cc);
+     std::cout << pp->aa() << pp->bb() << pp->cc() << std::endl;
+                   
          
-     
-     //30 : inline function : small & frequent function, etc X
-     
+         
  }
 
 
