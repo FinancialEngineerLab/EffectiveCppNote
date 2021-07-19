@@ -135,6 +135,8 @@ namespace NS
      // 31 end //
      
      // 32 : Public inheritance: base class's all details should be adjusted into derived class(child class) 
+                                    
+     // 33: Do not hide Base's names in public derived-child class
      class BaseCLS32
      {
        public:
@@ -150,12 +152,44 @@ namespace NS
      class DerivedChildCLS32 : Public Base
      {
        public:
-       using BaseCLS32::mf1;
-       using BaseCLS32::mf3;
+       using BaseCLS32::mf1; // **
+       using BaseCLS32::mf3; // **
        virtual void mf1();
        void mf3();
        void mf4();
-                                      
+     }
+     DerivedChildCLS32 d;
+     d.mf1();
+     d.mf1(int 3);
+     d.mf2();
+     d.mf3();
+     d.mf3(int 3);
+     
+     // 34: interface inheritance vs implement inheritance
+     class ShapeCLS
+     {
+         public:
+         // ** pure virtual -> interface inheritance : declare in child!
+         virtual void draw(const ShapeCLS& art) const = 0;
+         // ** simple virtual -> implement inheritance : declare in child if you do not want use base !
+         virtual void error(const std::string& msg); 
+         
+         int objectID() const;
+         
+         protected:
+         void defaultDraw(const ShapeCLS& art);  //** pure virtual default func      
+     };
+     void ShapeCLS::defaultDraw(const ShapeCLS& art)
+     {
+         ... // base function
+     }
+     class Rectangle: public Shape 
+     {
+         public:
+         virtual void draw(const ShapeCLS& art) { defaultDraw(art) }// pure virtual + default func
+     };
+     
+          
  }
 
 
