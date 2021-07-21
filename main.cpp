@@ -236,6 +236,20 @@ namespace NS
              ...
          } 
      };
+     
+     // 2) Function Pointer
+     class GameCharacter;
+     int defaultHealthCalc(const gameCharacter& gc);
+                                    
+     class GameCharacter
+     {
+         public:
+         typedef int (*HealthCareFunc) (const GameCharacter&);
+         
+         explicit 
+         
+                                        
+                                    
       
                                 
                                         
