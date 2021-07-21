@@ -215,6 +215,28 @@ namespace NS
      void RectangleChild2::draw(const ShapeCLS& art)
      {
      }
+                                    
+     // 35 : Alternative Design Pattern not using virtual //
+     // 1) vitural clocking
+     class GameCharacter
+     {
+         public:
+         int healthValue() const
+         {
+             ...
+             int retVal = doHealthValue(); // **
+             ...
+             return ret Val;
+         }
+         
+         // **
+         private:
+         virtual int doHealthValue() const
+         {
+             ...
+         } 
+     };
+      
                                 
                                         
      
