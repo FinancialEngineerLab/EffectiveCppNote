@@ -352,7 +352,43 @@ namespace NS
           virtual void doIt(enum color) const; // **
       };        
      
-          
+                     
+      // 39 : private inheritance : using for protected member approach, virtual function redeclarre
+      // 40 : multiple inheritance ? : no recommend!
+      class CLSA
+      {
+          public:
+          virtual ~CLSA();
+          virtual std::string name() const = 0;
+          virtual std::string birthDate() const = 0;
+      };
+      class CLSB { ... };
+      class CLSC
+      {
+          public:
+          explicit CLSC(CLSB pid);
+          virtual ~CLSC();
+          virtual const char* theName() const;
+          virtual const char* theBirthDate() const;
+          virtual const char* valueDelimOpen() const;
+          virtual const char* valueDelimClose() const;
+          ...
+       };
+       class CLSD : public CLSA, private CLSC
+       {
+           public:
+           explicit CLSA(CLSB pid):CLSC(pid) {}
+           virtual std::string name() const { return CLSC::theName() ;} // A & C 
+           virtual std::string birthDate() const { return CLSC::theBirthDate();} // A & C
+           
+           private:
+           const char* valueDelimOpen() const { return "";} // C
+           const char* valueDelimClose() const {return "";} // C
+       };
+           
+                         
+                    
+                         
  }
 
 
