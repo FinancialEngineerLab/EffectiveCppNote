@@ -331,9 +331,26 @@ namespace NS
       };
       // 36. do not redeclare herited nonvirtual function  in derived class                                         
                                     
-      
-                                
-                                        
+      // 37. do not redeclare herited basic parameter in derived class
+      //X
+      class Base { public : virtual void FUNC(enum color = Red) const = 0; } 
+      class Child : Base { public: virtual void FUNC(enum color = Green) const ; } // X
+                  
+      // O
+      class Base
+      {
+          public:
+          virtual void FUNC(enum color = Red) const  { doIt(color) }; // **
+          private:
+          virtual void doIt(enum color) const = 0; // **
+      };
+      class Child : public Base
+      {
+          public:
+          ...
+          private:
+          virtual void doIt(enum color) const; // **
+      };        
      
           
  }
