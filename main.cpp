@@ -246,8 +246,63 @@ namespace NS
          public:
          typedef int (*HealthCareFunc) (const GameCharacter&);
          
-         explicit 
+         explicit GameCharacter(HealthCalcFunc hcf = defaultHealathCalc):
+         healthFunc(hcf) {}
          
+         int healthValue() const
+         {
+             return healthFunc(*this);
+         }
+         
+         private:
+         HealthCalcFunc healthFunc;
+     };
+     // 3) tr1::fucntion
+     class GameCharacter;
+     int defaultHealthCalc(const gameCharacter& gc); 
+     class GameCharacter
+     {
+         public:
+         typedef std::tr1::function<int (const GameCharacter&)> HealthCalcFunc; //**
+         explicit GameCharacer(HealthCalcFunc hcf = defaultHealthCalc):healthCalc(hcf) {}
+         int healthValue() const
+         {
+             return helathFunc(*this);
+         }
+         ...
+             
+         private:
+         HealthCalcFunc healthFunc;
+     };
+     short calcHealth(const gameCharacter&);
+     struct HealthCalculator
+     {
+         int operator() (const GameCharacter&) const { ... }
+     };
+     class GameLevel
+     {
+         public:
+         float health(const GameCharacter&) const;
+         ...
+     };
+     class EvilBadGuy: public GameCharacter
+     {
+         ...
+     };
+     class EyeCandyCharacter:public GameCharacter
+     {
+         ...
+     };
+                                    
+     EvilBadGuy ebg1(calcHealth);
+     EyeCandyCharacter ecc1(HealthCalculator());
+                                    
+     GameLevel currentLevel;
+     ...
+     EvilBadGuy ebg2(std::tr1::bind(&GameLevel::health, currentLevel, _1)
+     
+                                        
+                                   
                                         
                                     
       
