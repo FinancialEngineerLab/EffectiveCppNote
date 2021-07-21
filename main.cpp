@@ -299,11 +299,37 @@ namespace NS
                                     
      GameLevel currentLevel;
      ...
-     EvilBadGuy ebg2(std::tr1::bind(&GameLevel::health, currentLevel, _1)
+     EvilBadGuy ebg2(std::tr1::bind(&GameLevel::health, currentLevel, _1);
      
-                                        
-                                   
-                                        
+     //4 Classical Design Pattern
+                     
+     class GameCharacter;
+     class HealthCalcFunc
+     {
+         public:
+         ...
+         virtual int calc(const GameCharacter& gc) const
+         {
+             ...
+         }
+         ...
+      };
+      HealthCalcFunc defaultHealthCalc;             
+      class GameCharacter
+      {
+          public:
+          explicit GameCharacter(HealthCalcFunc *phcf = &defaultHealthCalc):pHealthCalc(phcf) {}
+          
+          int healthValue() const
+          {
+              return pHealthCalc->calc(*this);
+          }
+          ...
+          private:
+          helathCalcFunc *pHealthcalc;
+                         
+      };
+      // 36. do not redeclare herited nonvirtual function  in derived class                                         
                                     
       
                                 
