@@ -387,7 +387,40 @@ namespace NS
        };
            
                          
-                    
+       // 41. Implicit Interface & complie time polymorphism        
+       template<typename T>
+       void doProcessing(T& w)
+       {
+           if (w.size() > 10 && w!=someNastyWidge)
+           {
+               T temp(w);
+               temp.normalize();
+               temp.swap(w);
+           }
+       }
+                     
+       // 42. typename
+       // typename : tmeplate<typename A> = template<class A>
+       // but typename when using overlapped dependant typename
+       template<typename C>
+       void print2nd(const C& container)
+       {
+           if (container.size() >= 2)
+           {
+               typename C::const_iterator iter(container.begin()); // **
+               ...
+           }
+       }
+       
+       template<typename IterT>
+       void workWithIterator(IterT iter)
+       {
+           typedef typename std::iterator_traits<IterT>::value_type value_type;
+           value_type temp(*iter);
+           ...
+       }
+                     
+                         
                          
  }
 
