@@ -487,11 +487,8 @@ namespace NS
        {
            public:
            shared_ptr<shared_ptr const& r);
-           
            template<class Y> shared_ptr<Y> const& r);
-           
            shared_ptr& operator=(shared_ptr const& r);
-
            template<class Y> shared_ptr& operator=(share_ptr<Y> const& r);
        };
                      
