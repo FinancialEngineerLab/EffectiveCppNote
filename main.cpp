@@ -463,14 +463,39 @@ namespace NS
        class SquareMatrix : private SquareMatrixBase<T>
        {
            public:
-           SquareMatrixBas<T>(n, data) {}
+           SquareMatrixBase<T>(n, data) {}
            ...
            private:
            T data[n*n];
        };
-                         
-                         
- }
+       ;
+                     
+       // 45. Member Function Template
+       template<typename T>
+       class SmartPtr
+       {
+           public:
+           template<typename U>
+           SmartPtr(const SmartPtr<U>& other) : helpPtr(other.get()) { ... }
+           T* get() const { return helpPtr; }
+           ...
+           private:
+           T *helpPtr;
+       };
+       
+       template<class T> class shared_ptr
+       {
+           public:
+           shared_ptr<shared_ptr const& r);
+           
+           template<class Y> shared_ptr<Y> const& r);
+           
+           shared_ptr& operator=(shared_ptr const& r);
+
+           template<class Y> shared_ptr& operator=(share_ptr<Y> const& r);
+       };
+                     
+}
 
 
 
