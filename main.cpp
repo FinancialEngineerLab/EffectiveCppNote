@@ -491,6 +491,30 @@ namespace NS
            shared_ptr& operator=(shared_ptr const& r);
            template<class Y> shared_ptr& operator=(share_ptr<Y> const& r);
        };
+       
+       // 46. Declare nonmember funtion in class template when type conversion
+       template<typename T>
+       class Rational
+       {
+           public:
+           Rational(const T& numerator = 0, const T& denominator = 1);
+           const T numerator() const;
+           const T denominator() const;
+           
+           friend
+               const Rational operator*(const Rational& lhs, const Rational& rhs)
+           {
+               return Rational(lhs.numerator() * rhs.numerator(),
+                               lhs.denominator() * rhs.denominator());
+           }
+           
+       };
+               
+           ...
+       };
+       template<typename T>
+       class Rational<T> operator*(const Rational<T>& lhs, const Rational<T>& rhs) { ... }
+                     
                      
 }
 
