@@ -447,6 +447,27 @@ namespace NS
            ...
        };
                      
+       // 44. code that is independant to parameter should be seperated into template
+       template<typename T>
+       class SquareMatrixBase
+       {
+           protected:
+           SquareMatrixBase(std::size_t n, T *pMem) : size(n), pData(pMem) {}
+           void setDataPtr(T *ptr) { pData = ptr;}
+           ...
+           private:
+           std::size_t size;
+           T *pData;
+       };
+       template<typename T, std::size_t n>
+       class SquareMatrix : private SquareMatrixBase<T>
+       {
+           public:
+           SquareMatrixBas<T>(n, data) {}
+           ...
+           private:
+           T data[n*n];
+       };
                          
                          
  }
