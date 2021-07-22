@@ -420,6 +420,33 @@ namespace NS
            ...
        }
                      
+       // 43. approaching base class in template
+       template<typename Company>
+       class MsgSender
+       {
+           public:
+           void sendClear(const MsgInfo& info)
+           {
+               std::string msg;
+               Company c;
+               c.SendCleartext(msg);
+           }
+           
+           void sendSecret(const MsgInfo& info)
+           {
+               ...
+           }
+       };
+       class LoggingMsgSender : public MsgSender<Company>
+       {
+           public:
+           void sendClearMsg(const MsgInfo& info)
+           {
+               this->sendCelar(info);
+           }
+           ...
+       };
+                     
                          
                          
  }
