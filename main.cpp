@@ -670,8 +670,55 @@ namespace NS
                          
        // 50. why use new?
        // 51. standard of new & delete
+       class Base
+       {
+           public:
+           static void * operator new(std::size_t size) throw(std::bad_alloc);
+           static void operator delete(void *rawMemory, std::size_t size) throw();
+           ...
+       };
+       void Base::operator delete(void *rawMemory, std::size_t size) throw()
+       {
+           if (rawMemory == 0) return;
+           if (size != sizeof(Base))
+           {
+               ::operator delete(rawMemory);
+               return ;
+           }
+           return;
+       }
        
+       // 52. placement new & placement delete
+       class Widget
+       {
+           public:
+           // **** REMEMBER **** //
+           // Basic new / delete 
+           static void* operator new(std::size_t size, std::ostream& logStream) throw(std::bad_alloc) { return ::operator new(size); }
+           static void operator delete(void *pMemory) throw() { ::operator delete(pMemory); }
+           // placement new / delete
+           static void* operator new(std::size_t size, void *ptr) throw() { return ::operator new(size, ptr); }
+           static void operator delete(void *pMemory, void *ptr) throw() { return ::operator delete(pMemory, ptr); }
+           // no exception new / delete
+           static void* operator new(std::size_t size, const std::nothrow_t& nt) throw() { return ::operator new(size, nt); }
+           static void operator delete(void *pMemory, const std::nothrow_t&) throw() { ::operator delete(pMemory); }
+       };
+       class Widget: public StandardNewDeleteForms
+       {
+           public:
+           using StandardNewDeleteForms::operator new;
+           using StandardNewDeleteForms::operator delete;
+           
+           static void* operator new(std::size_t size, std::ostream& logStream) throw(std::bad_alloc);
+           static void operator delete(void *pMemory, std::ostream& logStream) throw();
+       };
+                     
+       // 54. do not ignore warning message from complier
+       // 55. STL
+       // 56. Boost
+                     
                          
+         
                          
 }
 
