@@ -565,6 +565,23 @@ namespace NS
            }
        }
        
+       // 48. template meta programming
+       template<unsigned n>
+       struct Factorial
+       {
+           enum { vlaue = n*Factorial<n-1>::value };
+       };
+       template<>
+       struct Factorial<0>
+       {
+           enum {value = 1};
+       };
+       int main()
+       {
+           std::cout << Factorial<5>::value;
+       }
+           
+                         
 }
 
 
