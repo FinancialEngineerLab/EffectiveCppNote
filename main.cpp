@@ -668,7 +668,9 @@ namespace NS
                          
        Widget *pw2 = new (std::nothrow) Widget;
                          
-                         
+       // 50. why use new?
+       // 51. standard of new & delete
+       
                          
                          
 }
