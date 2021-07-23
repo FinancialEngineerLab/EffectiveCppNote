@@ -581,6 +581,57 @@ namespace NS
            std::cout << Factorial<5>::value;
        }
            
+       // 49. new oprator
+       namespace std
+       {
+           typedef void (*new_handler)();
+           new_handler set_new_handler(new_handler p) throw();
+       }
+       void outOfMem()
+       {
+           std::cerr << "Unable to satisfy request for memory";
+           std::abort();
+       }
+       int main()
+       {
+           std::set_new_handler(outOfMem);
+           int *pBigDataArray = new int[10000000L];
+       }
+                         
+       class Widget
+       {
+           public:
+           static std::new_handler set_new_handler(std::new_handler p) throw();
+           static void * operator new(std::size_t size) throw(std::bad_alloc);
+           
+           private:
+           static std::new_handler currentHandler;
+       };
+       std::new_handler Widget::set_new_handler(std::new_handler p) throw()
+       {
+           std::new_handler oldHandler = currentHandler;
+           currentHandler = p;
+           return oldHandler;
+       }
+                     
+       class NewHandlerHolder
+       {
+           public:
+           explicit NewHandlerHolder(std::new_handler nh) : handler(nh) {}
+           ~NewHandlerHolder() { std::set_new_handler(handler);}
+          
+           private:
+           std::new_handler handler;
+           NewHandlerHolder(const NewHandlerHolder&);
+           NewHandlerHolder& operator=(const NeewHandlerHolder&);
+       };
+       void * Widget::operator new(std::size_t size) throw(std::bad_alloc)
+       {
+           NewHandlerHolder h(std::set_new_handler(currentHandler));
+           return ::operator new(size);
+       }
+                     
+                         
                          
 }
 
