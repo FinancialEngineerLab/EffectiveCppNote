@@ -515,7 +515,56 @@ namespace NS
        template<typename T>
        class Rational<T> operator*(const Rational<T>& lhs, const Rational<T>& rhs) { ... }
                      
+       // 47. traits with info class
+       template<typename IterT, typename DistT>
+       void doAdvance(IterT& iter,DistT d, std::random_access_itertator_tag)
+       {
+           iter += d;
+       }
+       // bidirectioanl iterator
+       template<typename IterT, typename DistT>
+       void doAdvance(IterT& iter,DistT d, std::bidirectional_iterator_tag)
+       {
+           if(d>=0) { while (d--) ++iter;}
+           else { while (d++) --iter;}
+       }
+       // input iterator
+       template<typename IterT, typename DistT>
+       void doAdvance(IterT& iter,DistT d, std::std::input_iterator_tag)
+       {
+           if(d<0)
+           {
+               throw std::out_of_range("Negative distance");
+           }
+           while (d--) ++iter;
+       }
+       // call
+       template<typename IterT, typename DistT>
+       void advance(IterT& iter, DistT d)
+       {
+           doAdvance(iter, d, typename std::iterator_traits<IterT>::iterator_category());
+       };
+   
+                         
                      
+                     
+       template<typename IterT, typename DistT>
+       void advance(IterT& iter, DistT d)
+       {
+           if ()
+           {
+               iter += d;
+           }
+           else
+           {
+               if (d>=0) (wile (d--) ++iter;)
+                   else
+                   {
+                       while (d++) --iter;
+                   }
+           }
+       }
+       
 }
 
 
